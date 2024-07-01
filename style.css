@@ -1,0 +1,43 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+.navbarSection{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-family: -apple-system, BlinkMacSystemFont;
+    background-color: rgb(14, 122, 165);
+    font-weight: 700;
+    display: flex;
+    padding-right: 150px;
+    justify-content: space-between;
+}
+
+#navHeader{
+    color: white;
+    /* margin-left: 25px;
+    margin-top: 0px; */
+    align-items: center;
+}
+
+.listItems{
+    width: 200px;
+    display: flex;
+}
+
+.item{
+    margin-right: 15px;
+    color: white;
+    transition: ease-in-out 0.5s;
+}
+
+.item:hover{
+    color: greenyellow;
+    cursor: pointer;
+}
+
+.hero-section{
+    height: 550px;
+    background-color: greenyellow;
+
+}
