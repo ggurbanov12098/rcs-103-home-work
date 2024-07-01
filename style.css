@@ -1,63 +1,193 @@
 * {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
-.navbarSection{
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    font-family: -apple-system, BlinkMacSystemFont;
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.navbar {
+    padding: 1rem 150px;
     background-color: rgb(14, 122, 165);
     font-weight: 700;
     display: flex;
-    padding-right: 150px;
     justify-content: space-between;
-}
-
-#navHeader{
-    color: white;
-    /* margin-left: 25px;
-    margin-top: 0px; */
     align-items: center;
 }
 
-.listItems{
-    width: 200px;
+#navHeader {
+    color: white;
+}
+
+.menu {
     display: flex;
 }
 
-.item{
-    margin-right: 15px;
+.menu-item {
+    margin-left: 15px;
     color: white;
+    text-decoration: none;
     transition: ease-in-out 0.5s;
 }
 
-.item:hover{
+.menu-item:hover {
     color: greenyellow;
     cursor: pointer;
 }
 
-.hero-section{
+.hero {
     height: 550px;
     background-color: rgb(142, 219, 17);
     display: flex;
     justify-content: center;
-    font-family: -apple-system, BlinkMacSystemFont;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
 }
 
-.adam{
-    width: 300px;
-    height: 300px;
-    margin-top: 60px;
+.avatar {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 20px;
 }
 
-.img-div{
+.hero-content {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.line1{
+.divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.line {
     width: 100px;
     height: 4px;
-background-color: white;
+    background-color: white;
+}
+
+.line.black {
+    background-color: black;
+}
+
+.star {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: white;
+    margin: 0;
+}
+
+p {
+    font-size: 1.2em;
+    color: white;
+}
+
+.portfolio {
+    padding: 50px 150px;
+    text-align: center;
+}
+
+.portfolio h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.portfolio-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.portfolio-item {
+    width: 250px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.portfolio-item img {
+    width: 100px;
+    height: 100px;
+}
+
+.about {
+    background-color: #20c997;
+    color: white;
+    padding: 50px 0;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.heading {
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.divider.light .line {
+    background-color: white;
+}
+
+.row {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.col {
+    flex: 1;
+    max-width: 45%;
+}
+
+.lead {
+    font-size: 1.2em;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+.btn {
+    color: white;
+    border: 1px solid white;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: white;
+    color: #20c997;
+}
+
+.contact {
+    padding: 50px 0;
+    text-align: center;
 }
