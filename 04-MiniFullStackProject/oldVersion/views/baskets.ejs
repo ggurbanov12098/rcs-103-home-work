@@ -1,0 +1,51 @@
+<!-- views/baskets.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baskets</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/favorites">Favorites</a></li>
+            <li><a href="/baskets">Baskets</a></li>
+            <li><a href="/users">Users</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Baskets</h1>
+        <div class="basket-list">
+            <% baskets.forEach(basket => { %>
+                <div class="card">
+                    <h3><%= basket.name %></h3>
+                    <p><%= basket.description %></p>
+                    <p>Price: $<%= basket.price %></p>
+                    <div class="buttons">
+                        <button class="edit-button">Edit</button>
+                        <button class="delete-button" onclick="deleteBasket('<%= basket.id %>')">Delete</button>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+    <script>
+        function deleteBasket(id) {
+            fetch(`/baskets/${id}`, {
+                method: 'DELETE'
+            }).then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                } else {
+                    location.reload();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

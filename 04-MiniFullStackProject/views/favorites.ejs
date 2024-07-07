@@ -1,0 +1,51 @@
+<!-- views/favorites.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/favorites">Favorites</a></li>
+            <li><a href="/baskets">Baskets</a></li>
+            <li><a href="/users">Users</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Favorites</h1>
+        <div class="favorite-list">
+            <% favorites.forEach(favorite => { %>
+                <div class="card">
+                    <img src="<%= favorite.imageUrl %>" alt="<%= favorite.name %>">
+                    <h3><%= favorite.name %></h3>
+                    <p><%= favorite.description %></p>
+                    <p>Price: $<%= favorite.price %></p>
+                    <div class="buttons">
+                        <button class="delete-button" onclick="deleteFavorite('<%= favorite.id %>')">Delete</button>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+    <script>
+        function deleteFavorite(id) {
+            fetch(`/favorites/${id}`, {
+                method: 'DELETE'
+            }).then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                } else {
+                    location.reload();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
