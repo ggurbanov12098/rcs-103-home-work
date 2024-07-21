@@ -1,5 +1,5 @@
 import { getData } from "./api/api.js";
-import { createCard } from "./helpers/functions.js";
+// import { createCard } from "./helpers/functions.js";
 
 console.log(JSON.parse(localStorage.getItem("basket")), "BasketIdOnly");
 const basketContainer = document.querySelector(".basketContainer");
@@ -11,7 +11,6 @@ let resultBasketArr = [];
 getData().then(data => {
     // console.log(data.find((elem)=>elem.id===1));
     JSON.parse(localStorage.getItem("basket")).forEach((item) => {
-        // console.log(data.find((elem) => elem.id === basketID));
         console.log(item, "item");
         resultBasketArr.push({...data.find((elem) => elem.id === item.id), count: item.count})
     });
@@ -30,20 +29,7 @@ getData().then(data => {
                 <button>-</button>
             </div>;
         `;
+
     });
 
-
-
 });
-
-
-
-
-
-
-{/* <div class="basketItem">
-  <h3>name - price</h3>
-  <button>+</button>
-  <span>Count</span>
-  <button>-</button>
-</div>; */}

@@ -6,4 +6,3 @@ const getData = async() => {
 };
 
 getData().then((data) => {});
-
