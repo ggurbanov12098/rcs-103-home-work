@@ -1,20 +1,20 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const cors = require('cors');
 const { client, connectDB } = require('./config/db.js');
 
 dotenv.config();
-
 const app = express();
 const port = process.env.PORT || 3001;
 
-// Middleware to parse JSON
-app.use(express.json());
+app.use(cors());            // Middleware to enable CORS
+app.use(express.json());    // Middleware to parse JSON
 
 // Connect to database and start server
 const startServer = async () => {
     await connectDB();
 
-    // Define a route to fetch products
+    // Define a route to fetch all products
     app.get('/products', async (req, res) => {
         try {
             const database = client.db('testdb');
@@ -43,7 +43,7 @@ const startServer = async () => {
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
-    }); 
+    });
 
     // Start the server
     app.listen(port, () => {
