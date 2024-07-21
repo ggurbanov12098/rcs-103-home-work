@@ -64,3 +64,9 @@ section{
     translate: transformX(-50%);
     color: rgba(0, 0, 0, 0.2)
 }
+
+.basketItem {
+    border: 3px solid black;
+    margin: 10px;
+    
+}
