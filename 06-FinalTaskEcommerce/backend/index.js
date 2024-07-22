@@ -4,6 +4,7 @@ const cors = require("cors");
 const { client, connectDB, pool, connectMySQL } = require("./config/db.js");
 const bcrypt = require("bcrypt"); // Import bcrypt
 
+const jwt = require("jsonwebtoken");
 
 dotenv.config();
 const app = express();
@@ -14,6 +15,21 @@ app.use(express.json()); // Middleware to parse JSON
 
 
 connectMySQL(); // Ensure MySQL is connected
+
+const authenticateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    console.log(authHeader);
+    console.log(token);
+    if (!token) return res.status(401).json({ message: "Access denied" });
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+        if (err) return res.status(403).json({ message: "Token expired" });
+        req.user = user;
+        next();
+    });
+};
+  
 
 // Registration route
 app.post("/register", async (req, res) => {
@@ -53,44 +69,6 @@ app.post("/login", async (req, res) => {
 
 
 
-
-// // MySQL PART
-// app.post("/register", async (req, res) => {
-//     const { username, password, role } = req.body;
-//     try {
-//         const hashedPassword = await bcrypt.hash(password, 10);
-//         const [result] = await pool.query('INSERT INTO users (username, password, role) VALUES (?, ?, ?)', [username, hashedPassword, role]);
-//         res.status(201).json({ id: result.insertId, username, role });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
-// app.post("/login", async (req, res) => {
-//     const { username, password } = req.body;
-//     try {
-//         const [rows] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
-//         const user = rows[0];
-
-//         if (!user || !(await bcrypt.compare(password, user.password))) {
-//             return res.status(401).json({ message: "Invalid username or password" });
-//         }
-
-//         const token = jwt.sign(
-//             { id: user.id, role: user.role },
-//             process.env.JWT_SECRET,
-//             { expiresIn: "30s" }
-//         );
-//         res.status(200).json({ token });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
-
-
-
-
 // MONGODB PART
 // Connect to database and start server
 const startServer = async () => {
@@ -121,8 +99,9 @@ const startServer = async () => {
             const token = jwt.sign(
                 { id: user.id, role: user.role },
                 process.env.JWT_SECRET,
-                { expiresIn: "1h" }
+                { expiresIn: "5s" }
             );
+            console.log(token);
             res.status(200).json({ token });
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -130,7 +109,7 @@ const startServer = async () => {
     });
 
     // Define a route to fetch all products
-    app.get("/products", async (req, res) => {
+    app.get("/products",authenticateToken, async (req, res) => {
         try {
             const database = client.db("testdb");
             const products = database.collection("testcollection");
@@ -159,7 +138,7 @@ const startServer = async () => {
             res.status(500).json({ message: error.message });
         }
     });
-
+    
     // Start the server
     app.listen(port, () => {
         console.log(`Server running at http://localhost:${port}`);

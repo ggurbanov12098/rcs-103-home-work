@@ -4,6 +4,30 @@ import { createCard } from "./helpers/functions.js";
 let basket = JSON.parse(localStorage.getItem("basket")) || [];
 const products = document.querySelector(".products");
 
+function startTokenCheck() {
+    setInterval(async () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'reglog.html';
+            return;
+        }
+
+        try {
+            await axios.get('http://localhost:3001/products', {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            console.log(headers);
+        } catch (error) {
+            if (error.response && error.response.status === 403) {
+                localStorage.removeItem('token');
+                alert('Session expired. Please log in again.');
+                window.location.href = 'reglog.html';
+            }
+        }
+    }, 5000); // Check every 5 seconds
+}
+
+
 getData().then((data) => {
     createCard(products, data);
     products.addEventListener("click", (e) => {
@@ -31,5 +55,11 @@ getData().then((data) => {
     });
 });
 
+// Start checking the token validity if the token exists
+if (localStorage.getItem('token')) {
+    startTokenCheck();
+} else {
+    window.location.href = 'reglog.html';
+}
 
-localStorage.setItem("name", "JSON.stringify(arr)");
+// localStorage.setItem("name", JSON.stringify(arr));
