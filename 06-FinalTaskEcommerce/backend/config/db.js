@@ -25,15 +25,12 @@ const connectDB = async () => {
 
 
 
-
-
-
 const mysql = require('mysql2');
 // MySQL setup
 const pool = mysql.createPool({
   host: process.env.MYSQL_HOST || 'localhost',
   user: process.env.MYSQL_USER || 'root',
-  password: process.env.MYSQL_PASSWORD || 'hawx',
+  password: process.env.MYSQL_PASSWORD || 'Qp8keVUh',
   database: process.env.MYSQL_DATABASE || 'testschema'
 }).promise();
 
@@ -46,6 +43,26 @@ const connectMySQL = async () => {
     process.exit(1);
   }
 };
+
+
+// const mysql = require('mysql2');
+// // MySQL setup
+// const pool = mysql.createPool({
+//   host: process.env.MYSQL_HOST || 'localhost',
+//   user: process.env.MYSQL_USER || 'root',
+//   password: process.env.MYSQL_PASSWORD || 'Qp8keVUh',
+//   database: process.env.MYSQL_DATABASE || 'testschema'
+// }).promise();
+
+// const connectMySQL = async () => {
+//   try {
+//     await pool.getConnection();
+//     console.log('Successfully connected to MySQL!');
+//   } catch (error) {
+//     console.error('Unable to connect to MySQL:', error);
+//     process.exit(1);
+//   }
+// };
 
 // module.exports = {};
 module.exports = { client, connectDB, pool, connectMySQL };
